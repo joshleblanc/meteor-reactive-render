@@ -1,21 +1,19 @@
 import React, { Component } from 'react';
+import { autorun } from 'meteor/cereal:reactive-render';
 
+const Count = new ReactiveVar(0);
+
+@autorun
 export default class Hello extends Component {
-  state = {
-    counter: 0,
-  }
-
   increment() {
-    this.setState({
-      counter: this.state.counter + 1
-    });
+    Count.set(Count.get() + 1);
   }
 
   render() {
     return (
       <div>
-        <button onClick={() => this.increment()}>Click Me</button>
-        <p>You've pressed the button {this.state.counter} times.</p>
+        <button onClick={this.increment}>Click Me</button>
+        <p>You've pressed the button {Count.get()} times.</p>
       </div>
     );
   }
